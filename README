@@ -1,0 +1,29 @@
+====================
+        Finch       
+        v0.1.0
+====================
+
+Is a UDP fault injection proxy written in C++.
+
+DEPENDENCIES
+------------
+- C++17 compliant compiler (GCC, Clang, or MSVC)
+- CMake 3.15 or higher
+- Winsock2 (Windows, linked automatically) / POSIX Sockets (Linux)
+
+BUILDING
+--------
+Linux:
+  mkdir build && cd build
+  cmake -DCMAKE_BUILD_TYPE=Release ..
+  make
+
+Windows (MSVC):
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build . --config Release
+
+USAGE
+-----
+  ./finch --listen-ip <ip> --listen-port <port> --forward-ip <ip> --forward-port <port> [options]
