@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finch: UDP Fault Injection Proxy</title>
+    <style>
+        body {
+            background-color: #937B63;
+            color: #111;
+            font-family: monospace;
+            margin: 30px 10px;
+        }
+        .container {
+            width: 600px;
+            margin: 0 auto;
+            background-color: #D5DDBC;
+            border: 2px solid #8A9B68;
+            padding: 15px;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #8A9B68;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 18px;
+            margin: 0 0 5px 0;
+            color: #931F1D;
+        }
+        .tagline {
+            color: #8A9B68;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        nav {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        nav a {
+            color: #931F1D;
+            text-decoration: underline;
+            margin: 0 4px;
+        }
+        nav a:hover {
+            background-color: #B6C197;
+        }
+        h2 {
+            font-size: 13px;
+            background-color: #8A9B68;
+            color: #D5DDBC;
+            padding: 3px 6px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border: 1px solid #937B63;
+        }
+        p {
+            font-size: 12px;
+            margin: 8px 0;
+        }
+        pre {
+            background-color: #B6C197;
+            color: #111;
+            border: 1px inset #8A9B68;
+            padding: 8px;
+            overflow-x: auto;
+            font-size: 11px;
+        }
+        a {
+            color: #931F1D;
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 25px;
+            border-top: 1px dashed #8A9B68;
+            padding-top: 8px;
+            font-size: 10px;
+            color: #937B63;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Finch v0.1.0</h1>
+        <div class="tagline">&gt;&gt; UDP fault injection proxy written in C++</div>
+        <nav>
+            <a href="#overview">overview</a> |
+            <a href="#download">download</a> |
+            <a href="#usage">usage</a> |
+            <a href="https://github.com/Nouridin/Finch">github</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>overview</h2>
+            <p>Finch is in the middle of your UDP client and server to inject packet loss, simulated latency and bit corruption. Built for testing networking without these heavy bloated suites.</p>
+        </section>
+
+        <section id="download">
+            <h2>download &amp; source</h2>
+            <p>Grab prebuilt binaries or tarballs from the <a href="https://github.com/Nouridin/Finch/releases">releases page</a>, or clone and compile it yourself:</p>
+            <pre>git clone https://github.com/Nouridin/Finch.git
+cd Finch
+mkdir build &amp;&amp; cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . --config Release</pre>
+        </section>
+
+        <section id="usage">
+            <h2>quick start</h2>
+            <p>use it locally with your listening and forwarding targets:</p>
+            <pre>./finch --listen-ip 0.0.0.0 --listen-port 9000 \
+       --forward-ip 127.0.0.1 --forward-port 27015 \
+       --delay 100 --jitter 20 --drop-rate 0.05</pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>written by <a href="https://github.com/Nouridin">Nouridin</a> &bull; licensed under GNU GPL-3.0 .</p>
+    </footer>
+</div>
+
+</body>
+</html>

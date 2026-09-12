@@ -12,11 +12,11 @@
 #include <chrono>
 
 /* Socket Initializers */
-bool init_sockets();
-void cleanup_sockets();
-bool set_non_blocking(socket_t sock);
+bool initSockets();
+void cleanupSockets();
+bool noBlocking(socket_t sock);
 
 /* Payload */
 void corruptPayload(uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng);
-bool should_drop(float drop_rate, std::mt19937& rng);
+bool Drop(float drop_rate, std::mt19937& rng);
 #endif

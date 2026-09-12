@@ -21,7 +21,8 @@
 #include <cstdlib>
 #include <cstdint>
 
-struct FinchConfig {
+struct FinchConfig 
+{
     std::string listen_ip = "";
     uint16_t listen_port = 0;
     std::string forward_ip = "";
@@ -36,7 +37,8 @@ struct FinchConfig {
 
     bool show_help = false;
 
-    static void print_usage(const char* exec_name) {
+    static void print_usage(const char* exec_name) 
+    {
         std::cout << "Usage: " << exec_name << " --listen-ip <ip> --listen-port <port> --forward-ip <ip> --forward-port <port> [options]\n\n"
                   << "Required:\n"
                   << "  --listen-ip <ip>      IP address to listen on (e.g. 0.0.0.0)\n"
@@ -52,47 +54,62 @@ struct FinchConfig {
                   << "  -h, --help            Show this help message\n";
     }
 
-    static FinchConfig parse(int argc, char* argv[]) {
+    static FinchConfig parse(int argc, char* argv[]) 
+    {
         FinchConfig cfg;
 
-        if (argc <= 1) {
+        if (argc <= 1) 
+        {
             cfg.show_help = true;
             return cfg;
         }
 
-        for (int i = 1; i < argc; ++i) {
+        for (int i = 1; i < argc; ++i) 
+        {
             std::string arg = argv[i];
 
-            if (arg == "-h" || arg == "--help") {
+            if (arg == "-h" || arg == "--help") 
+            {
                 cfg.show_help = true;
                 return cfg;
             }
 
-            if (i + 1 >= argc) {
+            if (i + 1 >= argc) 
+            {
                 std::cerr << "[!] Error: Flag '" << arg << "' needs a value.\n";
                 cfg.show_help = true;
                 return cfg;
             }
 
-            if (arg == "--listen-ip") {
+            if (arg == "--listen-ip") 
+            {
                 cfg.listen_ip = argv[++i];
-            } else if (arg == "--listen-port") {
+            } else if (arg == "--listen-port") 
+            {
                 cfg.listen_port = (uint16_t)std::atoi(argv[++i]);
-            } else if (arg == "--forward-ip") {
+            } else if (arg == "--forward-ip") 
+            {
                 cfg.forward_ip = argv[++i];
-            } else if (arg == "--forward-port") {
+            } else if (arg == "--forward-port") 
+            {
                 cfg.forward_port = (uint16_t)std::atoi(argv[++i]);
-            } else if (arg == "--flip-rate") {
+            } else if (arg == "--flip-rate") 
+            {
                 cfg.bitflip_rate = std::atof(argv[++i]);
-            } else if (arg == "--drop-rate") {
+            } else if (arg == "--drop-rate") 
+            {
                 cfg.drop_rate = std::atof(argv[++i]);
-            } else if (arg == "--delay") {
+            } else if (arg == "--delay") 
+            {
                 cfg.delay_ms = (uint32_t)std::strtoul(argv[++i], NULL, 10);
-            } else if (arg == "--jitter") {
+            } else if (arg == "--jitter") 
+            {
                 cfg.jitter_ms = (uint32_t)std::strtoul(argv[++i], NULL, 10);
-            } else if (arg == "--seed") {
+            } else if (arg == "--seed") 
+            {
                 cfg.seed = (uint32_t)std::strtoul(argv[++i], NULL, 10);
-            } else {
+            } else 
+            {
                 std::cerr << "[!] Unknown option: " << arg << "\n";
                 cfg.show_help = true;
                 return cfg;
@@ -100,7 +117,8 @@ struct FinchConfig {
         }
 
         // Validate mandatory parameters
-        if (cfg.listen_ip.empty() || cfg.listen_port == 0 || cfg.forward_ip.empty() || cfg.forward_port == 0) {
+        if (cfg.listen_ip.empty() || cfg.listen_port == 0 || cfg.forward_ip.empty() || cfg.forward_port == 0) 
+        {
             std::cerr << "[!] Error: Missing required network parameters (--listen-ip, --listen-port, --forward-ip, --forward-port).\n\n";
             cfg.show_help = true;
         }

@@ -33,25 +33,30 @@
 #include <unistd.h>
 #endif
 
-struct DelayedPacket {
+struct DelayedPacket 
+{
     std::vector<uint8_t> payload;
     std::chrono::steady_clock::time_point release_time;
     size_t id;
     sockaddr_in dest_addr;
 
-    bool operator>(const DelayedPacket& other) const {
+    bool operator>(const DelayedPacket& other) const 
+    {
         return release_time > other.release_time;
     }
 };
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
     FinchConfig config = FinchConfig::parse(argc, argv);
-    if (config.show_help) {
+    if (config.show_help) 
+    {
         FinchConfig::print_usage(argv[0]);
         return 1;
     }
 
-    if (!init_sockets()) {
+    if (!initSockets()) 
+    {
         std::cerr << "[ERROR] Failed to init sockets.\n";
         return 1;
     }
@@ -61,7 +66,7 @@ int main(int argc, char* argv[]) {
     socket_t proxy_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (IS_INVALID_SOCKET(proxy_sock)) {
         std::cerr << "[ERROR] Could not create UDP socket.\n";
-        cleanup_sockets();
+        cleanupSockets();
         return 1;
     }
 
@@ -74,7 +79,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "[ERROR] Failed to bind socket to " 
                   << config.listen_ip << ":" << config.listen_port << "\n";
         CLOSE_SOCKET(proxy_sock);
-        cleanup_sockets();
+        cleanupSockets();
         return 1;
     }
 
@@ -83,7 +88,7 @@ int main(int argc, char* argv[]) {
     target_addr.sin_port = htons(config.forward_port);
     inet_pton(AF_INET, config.forward_ip.c_str(), &target_addr.sin_addr);
 
-    if (!set_non_blocking(proxy_sock)) {
+    if (!noBlocking(proxy_sock)) {
         std::cerr << "[WARN] Failed to set socket non-blocking mode.\n";
     }
 
@@ -139,14 +144,14 @@ int main(int argc, char* argv[]) {
                 std::cout << "[FWD] Client -> Target (" << bytes_received << " bytes)\n";
             }
 
-            if (should_drop((float)config.drop_rate, rng)) {
+            if (Drop((float)config.drop_rate, rng)) {
                 dropped_packets++;
                 std::cout << "[DROP] Packet #" << total_packets << " (" << bytes_received << " bytes)\n";
             } else {
                 std::vector<uint8_t> original_buffer(buffer, buffer + bytes_received);
                 corruptPayload(buffer, (size_t)bytes_received, (float)config.bitflip_rate, rng);
 
-                print_hex_diff(original_buffer.data(), buffer, (size_t)bytes_received);
+                printHex(original_buffer.data(), buffer, (size_t)bytes_received);
 
                 uint32_t applied_delay = config.delay_ms;
                 if (config.jitter_ms > 0) {
@@ -188,6 +193,6 @@ int main(int argc, char* argv[]) {
     }
 
     CLOSE_SOCKET(proxy_sock);
-    cleanup_sockets();
+    cleanupSockets();
     return 0;
 }

@@ -19,7 +19,8 @@
 #include <iomanip>
 #include <cctype>
 
-void print_hex_diff(const uint8_t* orig, const uint8_t* mutated, size_t size, size_t bytes_per_line) {
+void printHex(const uint8_t* orig, const uint8_t* mutated, size_t size, size_t bytes_per_line) 
+{
     std::cout << "\n--- PACKET MUTATION INSPECTOR (" << size << " bytes) ---\n";
     std::cout << "  OFFSET  | ORIGINAL HEX | MUTATED HEX  | ORIG  MUT\n";
     std::cout << "----------+--------------+--------------+-----------\n";
