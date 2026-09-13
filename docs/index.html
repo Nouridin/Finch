@@ -20,7 +20,7 @@
         header {
             text-align: center;
             border-bottom: 2px solid #8A9B68;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
             margin-bottom: 15px;
         }
         h1 {
@@ -32,9 +32,32 @@
             color: #8A9B68;
             font-size: 11px;
             font-weight: bold;
+            margin-bottom: 10px;
         }
+        
+        .github-badge {
+            display: inline-block;
+            background-color: #B6C197;
+            border: 1px solid #8A9B68;
+            padding: 2px 8px;
+            font-size: 11px;
+            color: #111;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .github-badge:hover {
+            background-color: #8A9B68;
+            color: #D5DDBC;
+        }
+        .github-badge .star-icon {
+            color: #931F1D;
+            font-weight: bold;
+        }
+        .github-badge:hover .star-icon {
+            color: #D5DDBC;
+        }
+
         nav {
-            margin-top: 8px;
             font-size: 12px;
         }
         nav a {
@@ -91,6 +114,9 @@
             <a href="pages/releases.html">download</a> |
             <a href="#usage">usage</a> |
             <a href="https://github.com/Nouridin/Finch">github</a>
+            <a href="https://github.com/Nouridin/Finch" class="github-badge">
+                <span class="star-icon"></span>stars: <span id="star-count">--</span>
+            </a>
         </nav>
     </header>
 
@@ -123,6 +149,21 @@ cmake --build . --config Release</pre>
         <p>written by <a href="https://github.com/Nouridin">Nouridin</a> &bull; licensed under GNU GPL-3.0</p>
     </footer>
 </div>
+
+<script>
+    async function fetchStars() {
+        try {
+            const res = await fetch('https://api.github.com/repos/Nouridin/Finch');
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById('star-count').textContent = data.stargazers_count;
+            }
+        } catch (e) {
+            document.getElementById('star-count').textContent = 'N/A';
+        }
+    }
+    fetchStars();
+</script>
 
 </body>
 </html>

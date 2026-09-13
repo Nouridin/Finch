@@ -7,7 +7,7 @@ Is a UDP fault injection proxy written in C++.
 
 DEPENDENCIES
 ------------
-- C++17 compliant compiler (GCC, Clang, or MSVC)
+- C++20 compliant compiler (GCC, Clang, or MSVC)
 - CMake 3.15 or higher
 - Winsock2 (Windows, linked automatically) / POSIX Sockets (Linux)
 
