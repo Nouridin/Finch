@@ -3,20 +3,20 @@
 
 #include "../Crossplatform/CROSS.h"
 
-#include <iostream>
-#include <vector>
-#include <cstdint>
-#include <random>
-#include <cstring>
-#include <thread>
 #include <chrono>
+#include <cstdint>
+#include <cstring>
+#include <iostream>
+#include <random>
+#include <thread>
+#include <vector>
 
 /* Socket Initializers */
-bool initSockets();
-void cleanupSockets();
-bool noBlocking(socket_t sock);
+bool initSockets ();
+void cleanupSockets ();
+bool noBlocking (socket_t sock);
 
 /* Payload */
-void corruptPayload(uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng);
-bool Drop(float drop_rate, std::mt19937& rng);
+void corruptPayload (uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng);
+bool Drop (float drop_rate, std::mt19937& rng);
 #endif

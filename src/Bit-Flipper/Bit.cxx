@@ -15,55 +15,63 @@
 
 #include "Bit.h"
 
-bool initSockets()
+bool
+initSockets ()
 {
-    #ifdef _WIN32
+#ifdef _WIN32
         WSADATA wsa_data;
         return WSAStartup(MAKEWORD(2, 2), &wsa_data) == 0;
-    #else
+#else
         return true;
-    #endif
+#endif
 }
 
-void cleanupSockets()
+void
+cleanupSockets ()
 {
-    #ifdef _WIN32
+#ifdef _WIN32
         WSACleanup();
-    #endif
+#endif
 }
 
-bool noBlocking(socket_t sock)
+bool
+noBlocking (socket_t sock)
 {
-    #ifdef _WIN32
+#ifdef _WIN32
         u_long mode = 1;
         return ioctlsocket(sock, FIONBIO, &mode) == 0;
-    #else
+#else
         int flags = fcntl(sock, F_GETFL, 0);
-        if (flags < 0) return false;
+        if (flags < 0)
+                return false;
         return fcntl(sock, F_SETFL, flags | O_NONBLOCK) == 0;
-    #endif
+#endif
 }
 
-void corruptPayload(uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng)
+void
+corruptPayload (uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng)
 {
-    if (length == 0 || bitflip_rate <= 0.0f) return;
+        if (length == 0 || bitflip_rate <= 0.0f)
+                return;
 
-    std::uniform_real_distribution<float> prob_dist(0.0f, 1.0f);
-    std::uniform_int_distribution<int> bit_dist(0, 7);
+        std::uniform_real_distribution<float> prob_dist(0.0f, 1.0f);
+        std::uniform_int_distribution<int> bit_dist(0, 7);
 
-    for (size_t i = 0; i < length; ++i)
-    {
-        if (prob_dist(rng) < bitflip_rate)
+        for (size_t i = 0; i < length; ++i)
         {
-            uint8_t bit_mask = 1 << bit_dist(rng);
-            data[i] ^= bit_mask;
+                if (prob_dist(rng) < bitflip_rate)
+                {
+                        uint8_t bit_mask = 1 << bit_dist(rng);
+                        data[i] ^= bit_mask;
+                }
         }
-    }
 }
 
-bool Drop(float drop_rate, std::mt19937& rng)
+bool
+Drop (float drop_rate, std::mt19937& rng)
 {
-    if (drop_rate <= 0.0f) return false;
-    std::uniform_real_distribution<float> prob(0.0f, 1.0f);
-    return prob(rng) < drop_rate;
+        if (drop_rate <= 0.0f)
+                return false;
+        std::uniform_real_distribution<float> prob(0.0f, 1.0f);
+        return prob(rng) < drop_rate;
 }

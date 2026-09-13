@@ -15,57 +15,80 @@
 
 #include "HexDump.h"
 
-#include <iostream>
-#include <iomanip>
 #include <cctype>
+#include <iomanip>
+#include <iostream>
 
-void printHex(const uint8_t* orig, const uint8_t* mutated, size_t size, size_t bytes_per_line) 
+void
+printHex (const uint8_t* orig, const uint8_t* mutated, size_t size, size_t bytes_per_line)
 {
-    std::cout << "\n--- PACKET MUTATION INSPECTOR (" << size << " bytes) ---\n";
-    std::cout << "  OFFSET  | ORIGINAL HEX | MUTATED HEX  | ORIG  MUT\n";
-    std::cout << "----------+--------------+--------------+-----------\n";
+        std::cout << "\n--- PACKET MUTATION INSPECTOR (" << size << " bytes) ---\n";
+        std::cout << "  OFFSET  | ORIGINAL HEX | MUTATED HEX  | ORIG  MUT\n";
+        std::cout << "----------+--------------+--------------+-----------\n";
 
-    for (size_t line = 0; line < size; line += bytes_per_line) {
-        std::cout << "  0x" << std::setw(4) << std::setfill('0') << std::hex << std::uppercase << line << "  | ";
+        for (size_t line = 0; line < size; line += bytes_per_line)
+        {
+                std::cout << "  0x" << std::setw(4) << std::setfill('0') << std::hex
+                          << std::uppercase << line << "  | ";
 
-        for (size_t i = 0; i < bytes_per_line; ++i) {
-            if (line + i < size) {
-                std::cout << std::setw(2) << std::setfill('0') << static_cast<int>(orig[line + i]) << " ";
-            } else {
-                std::cout << "   ";
-            }
-        }
-        std::cout << "| ";
+                for (size_t i = 0; i < bytes_per_line; ++i)
+                {
+                        if (line + i < size)
+                        {
+                                std::cout << std::setw(2) << std::setfill('0')
+                                          << static_cast<int>(orig[line + i]) << " ";
+                        }
+                        else
+                        {
+                                std::cout << "   ";
+                        }
+                }
+                std::cout << "| ";
 
-        for (size_t i = 0; i < bytes_per_line; ++i) {
-            if (line + i < size) {
-                std::cout << std::setw(2) << std::setfill('0') << static_cast<int>(mutated[line + i]) << " ";
-            } else {
-                std::cout << "   ";
-            }
-        }
-        std::cout << "| ";
+                for (size_t i = 0; i < bytes_per_line; ++i)
+                {
+                        if (line + i < size)
+                        {
+                                std::cout << std::setw(2) << std::setfill('0')
+                                          << static_cast<int>(mutated[line + i]) << " ";
+                        }
+                        else
+                        {
+                                std::cout << "   ";
+                        }
+                }
+                std::cout << "| ";
 
-        for (size_t i = 0; i < bytes_per_line; ++i) {
-            if (line + i < size) {
-                char c = static_cast<char>(orig[line + i]);
-                std::cout << (std::isprint(static_cast<unsigned char>(c)) ? c : '.');
-            } else {
+                for (size_t i = 0; i < bytes_per_line; ++i)
+                {
+                        if (line + i < size)
+                        {
+                                char c = static_cast<char>(orig[line + i]);
+                                std::cout
+                                    << (std::isprint(static_cast<unsigned char>(c)) ? c : '.');
+                        }
+                        else
+                        {
+                                std::cout << " ";
+                        }
+                }
                 std::cout << " ";
-            }
-        }
-        std::cout << " ";
 
-        for (size_t i = 0; i < bytes_per_line; ++i) {
-            if (line + i < size) {
-                char c = static_cast<char>(mutated[line + i]);
-                std::cout << (std::isprint(static_cast<unsigned char>(c)) ? c : '.');
-            } else {
-                std::cout << " ";
-            }
-        }
+                for (size_t i = 0; i < bytes_per_line; ++i)
+                {
+                        if (line + i < size)
+                        {
+                                char c = static_cast<char>(mutated[line + i]);
+                                std::cout
+                                    << (std::isprint(static_cast<unsigned char>(c)) ? c : '.');
+                        }
+                        else
+                        {
+                                std::cout << " ";
+                        }
+                }
 
-        std::cout << std::dec << "\n";
-    }
-    std::cout << "-----------------------------------------------------\n\n";
+                std::cout << std::dec << "\n";
+        }
+        std::cout << "-----------------------------------------------------\n\n";
 }

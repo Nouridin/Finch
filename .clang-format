@@ -1,0 +1,41 @@
+BasedOnStyle: LLVM
+Language: Cpp
+
+IndentWidth: 8
+ColumnLimit: 100
+UseTab: Never
+
+# ------------------------------------------------------------------------------
+# Bracing Style & Newlines (Allman Style)
+# ------------------------------------------------------------------------------
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  BeforeElse: true
+  AfterControlStatement: Always
+  AfterClass: true
+  AfterStruct: true
+  AfterEnum: true
+  AfterNamespace: true
+  AfterUnion: true
+
+AlwaysBreakAfterDefinitionReturnType: All
+
+# ------------------------------------------------------------------------------
+# Prevent Inlining
+# ------------------------------------------------------------------------------
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+
+# ------------------------------------------------------------------------------
+# Whitespace & Alignment
+# ------------------------------------------------------------------------------
+SpaceBeforeParens: Custom
+SpaceBeforeParensOptions:
+  AfterFunctionDefinitionName: true
+  AfterFunctionDeclarationName: true
+  AfterControlStatements: true
+
+PointerAlignment: Left
