@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finch - All Releases & Downloads</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            background-color: #937B63;
+            color: #111;
+            font-family: monospace;
+            margin: 30px 10px;
+        }
+        .container {
+            width: 640px;
+            margin: 0 auto;
+            background-color: #D5DDBC;
+            border: 2px solid #8A9B68;
+            padding: 15px;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #8A9B68;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 18px;
+            margin: 0 0 5px 0;
+            color: #931F1D;
+        }
+        .tagline {
+            color: #8A9B68;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        nav {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        nav a {
+            color: #931F1D;
+            text-decoration: underline;
+            margin: 0 4px;
+        }
+        nav a:hover {
+            background-color: #B6C197;
+        }
+        .stats-bar {
+            background-color: #B6C197;
+            border: 1px solid #8A9B68;
+            padding: 8px 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .stats-bar span {
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 13px;
+            background-color: #8A9B68;
+            color: #D5DDBC;
+            padding: 3px 6px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border: 1px solid #937B63;
+            text-transform: lowercase;
+        }
+        .release-card {
+            background-color: #D5DDBC;
+            border: 1px solid #8A9B68;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        .release-card.latest {
+            border: 2px solid #931F1D;
+        }
+        .release-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #8A9B68;
+            padding-bottom: 6px;
+        }
+        .release-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #931F1D;
+        }
+        /* Badges / Flairs */
+        .badge {
+            font-size: 10px;
+            padding: 2px 5px;
+            margin-left: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .badge-latest {
+            background-color: #931F1D;
+            color: #D5DDBC;
+        }
+        .badge-stable {
+            background-color: #8A9B68;
+            color: #D5DDBC;
+            border: 1px solid #5a6941;
+        }
+        .badge-unstable {
+            background-color: #d97706;
+            color: #ffffff;
+            border: 1px solid #b45309;
+        }
+        .release-date {
+            font-size: 11px;
+            color: #937B63;
+        }
+        .asset-list {
+            background-color: #B6C197;
+            border: 1px inset #8A9B68;
+            padding: 8px 10px;
+            margin: 8px 0;
+        }
+        .asset-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+        .asset-item:last-child {
+            margin-bottom: 0;
+        }
+        /* Markdown Notes Box */
+        .release-body {
+            background-color: #B6C197;
+            color: #111;
+            border: 1px inset #8A9B68;
+            padding: 10px 12px;
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .release-body h1, .release-body h2, .release-body h3 {
+            font-size: 12px;
+            font-weight: bold;
+            margin: 8px 0 4px 0;
+            color: #931F1D;
+            background: none;
+            border: none;
+            padding: 0;
+            text-transform: none;
+        }
+        .release-body p {
+            margin: 4px 0;
+        }
+        .release-body ul, .release-body ol {
+            margin: 4px 0;
+            padding-left: 18px;
+        }
+        .release-body code {
+            background-color: #D5DDBC;
+            padding: 1px 4px;
+            border: 1px solid #8A9B68;
+            font-family: monospace;
+            font-size: 11px;
+        }
+        .release-body pre {
+            background-color: #D5DDBC;
+            border: 1px solid #8A9B68;
+            padding: 6px;
+            overflow-x: auto;
+            margin: 6px 0;
+        }
+        .release-body pre code {
+            border: none;
+            padding: 0;
+            background: none;
+        }
+        a {
+            color: #931F1D;
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 25px;
+            border-top: 1px dashed #8A9B68;
+            padding-top: 8px;
+            font-size: 10px;
+            color: #937B63;
+            text-align: center;
+        }
+        #loading {
+            font-style: italic;
+            color: #937B63;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Finch Downloads &amp; Releases</h1>
+        <div class="tagline">&gt;&gt; Full Release Archive</div>
+        <nav>
+            <a href="../index.html">home</a> |
+            <a href="https://github.com/Nouridin/Finch/releases" target="_blank">view on github</a> |
+            <a href="https://github.com/Nouridin/Finch" target="_blank">source code</a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="loading">Fetching release archive from GitHub...</div>
+
+        <div id="content" style="display: none;">
+            <div class="stats-bar">
+                <div>Releases: <span id="total-releases">0</span></div>
+                <div>Downloads: <span id="total-dl">0</span></div>
+            </div>
+
+            <section id="latest-release-container">
+                <h2>latest release</h2>
+                <div id="latest-release-target"></div>
+            </section>
+
+            <section id="past-releases-container">
+                <h2>past releases</h2>
+                <div id="past-releases-target"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>written by <a href="https://github.com/Nouridin">Nouridin</a> &bull; licensed under GNU GPL-3.0</p>
+    </footer>
+</div>
+
+<script>
+    async function loadReleases() {
+        const repo = "Nouridin/Finch";
+        const apiUrl = `https://api.github.com/repos/${repo}/releases`;
+        const loadingEl = document.getElementById('loading');
+        const contentEl = document.getElementById('content');
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            const releases = await response.json();
+
+            if (!releases || releases.length === 0) {
+                loadingEl.textContent = "No formal releases published on GitHub yet.";
+                return;
+            }
+
+            let globalDownloads = 0;
+            document.getElementById('total-releases').textContent = releases.length;
+
+            const latestTarget = document.getElementById('latest-release-target');
+            const pastTarget = document.getElementById('past-releases-target');
+            const pastSection = document.getElementById('past-releases-container');
+
+            latestTarget.innerHTML = '';
+            pastTarget.innerHTML = '';
+
+            releases.forEach((rel, idx) => {
+                const isLatest = idx === 0;
+                const isPrerelease = rel.prerelease;
+                
+                const pubDate = new Date(rel.published_at).toLocaleDateString(undefined, {
+                    year: 'numeric', month: 'short', day: 'numeric'
+                });
+
+                let releaseDownloads = 0;
+                let assetsHTML = '';
+
+                if (rel.assets && rel.assets.length > 0) {
+                    rel.assets.forEach(asset => {
+                        releaseDownloads += asset.download_count;
+                        globalDownloads += asset.download_count;
+                        const sizeMB = (asset.size / (1024 * 1024)).toFixed(2);
+                        assetsHTML += `
+                            <div class="asset-item">
+                                <a href="${asset.browser_download_url}">${asset.name}</a>
+                                <span>${sizeMB} MB (${asset.download_count})</span>
+                            </div>
+                        `;
+                    });
+                } else {
+                    assetsHTML = '<div class="asset-item"><span>No prebuilt binaries uploaded for this tag.</span></div>';
+                }
+
+                assetsHTML += `
+                    <div class="asset-item"><a href="${rel.tarball_url}">Source code (tar.gz)</a> <span>Archive</span></div>
+                    <div class="asset-item"><a href="${rel.zipball_url}">Source code (zip)</a> <span>Archive</span></div>
+                `;
+
+                let badgesHTML = '';
+                if (isLatest) {
+                    badgesHTML += '<span class="badge badge-latest">LATEST</span>';
+                }
+                if (isPrerelease) {
+                    badgesHTML += '<span class="badge badge-unstable">BETA</span>';
+                } else {
+                    badgesHTML += '<span class="badge badge-stable">STABLE</span>';
+                }
+
+                const parsedBody = rel.body ? marked.parse(rel.body) : '<p>No release notes provided.</p>';
+
+                const card = document.createElement('div');
+                card.className = `release-card ${isLatest ? 'latest' : ''}`;
+                card.innerHTML = `
+                    <div class="release-header">
+                        <div>
+                            <span class="release-title">${rel.name || rel.tag_name}</span>
+                            ${badgesHTML}
+                        </div>
+                        <span class="release-date">${pubDate}</span>
+                    </div>
+                    <div class="asset-list">
+                        ${assetsHTML}
+                    </div>
+                    <div class="release-body">${parsedBody}</div>
+                `;
+
+                if (isLatest) {
+                    latestTarget.appendChild(card);
+                } else {
+                    pastTarget.appendChild(card);
+                }
+            });
+
+            if (releases.length <= 1) {
+                pastSection.style.display = 'none';
+            }
+
+            document.getElementById('total-dl').textContent = globalDownloads;
+            loadingEl.style.display = 'none';
+            contentEl.style.display = 'block';
+
+        } catch (err) {
+            loadingEl.textContent = 'Failed to load releases from GitHub. Check back shortly or visit GitHub directly.';
+            console.error('GitHub API error:', err);
+        }
+    }
+
+    loadReleases();
+</script>
+
+</body>
+</html>
