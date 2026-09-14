@@ -37,8 +37,7 @@ struct FinchConfig
 
         bool show_help = false;
 
-        static void
-        print_usage (const char* exec_name)
+        static void print_usage (const char* exec_name)
         {
                 std::cout
                     << "Usage: " << exec_name
@@ -58,8 +57,7 @@ struct FinchConfig
                     << "  -h, --help            Show this help message\n";
         }
 
-        static FinchConfig
-        parse (int argc, char* argv[])
+        static FinchConfig parse (int argc, char* argv[])
         {
                 FinchConfig cfg;
 

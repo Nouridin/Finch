@@ -19,7 +19,9 @@ BraceWrapping:
   AfterNamespace: true
   AfterUnion: true
 
-AlwaysBreakAfterDefinitionReturnType: All
+# Keep return type on the same line as the function name
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
 
 # ------------------------------------------------------------------------------
 # Prevent Inlining

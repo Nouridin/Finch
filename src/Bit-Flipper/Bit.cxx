@@ -15,8 +15,7 @@
 
 #include "Bit.h"
 
-bool
-initSockets ()
+bool initSockets ()
 {
 #ifdef _WIN32
         WSADATA wsa_data;
@@ -26,16 +25,14 @@ initSockets ()
 #endif
 }
 
-void
-cleanupSockets ()
+void cleanupSockets ()
 {
 #ifdef _WIN32
         WSACleanup();
 #endif
 }
 
-bool
-noBlocking (socket_t sock)
+bool noBlocking (socket_t sock)
 {
 #ifdef _WIN32
         u_long mode = 1;
@@ -48,8 +45,7 @@ noBlocking (socket_t sock)
 #endif
 }
 
-void
-corruptPayload (uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng)
+void corruptPayload (uint8_t* data, size_t length, float bitflip_rate, std::mt19937& rng)
 {
         if (length == 0 || bitflip_rate <= 0.0f)
                 return;
@@ -67,8 +63,7 @@ corruptPayload (uint8_t* data, size_t length, float bitflip_rate, std::mt19937& 
         }
 }
 
-bool
-Drop (float drop_rate, std::mt19937& rng)
+bool Drop (float drop_rate, std::mt19937& rng)
 {
         if (drop_rate <= 0.0f)
                 return false;

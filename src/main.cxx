@@ -40,15 +40,13 @@ struct DelayedPacket
         size_t id;
         sockaddr_in dest_addr;
 
-        bool
-        operator>(const DelayedPacket& other) const
+        bool operator>(const DelayedPacket& other) const
         {
                 return release_time > other.release_time;
         }
 };
 
-int
-main (int argc, char* argv[])
+int main (int argc, char* argv[])
 {
         FinchConfig config = FinchConfig::parse(argc, argv);
         if (config.show_help)
